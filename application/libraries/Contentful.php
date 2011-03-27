@@ -21,9 +21,12 @@ class Contentful {
     return $this->$key;
   }
 
-  function load($view = false, $return = false) {
+  function load($view = false, $data = false, $return = false) {
     if(!$view) {
-      return $this->load("{$this->get_config('controller_name')}/{$this->get_config('method_name')}.{$this->get_config('format')}.php", $return);
+      return $this->load("{$this->get_config('controller_name')}/{$this->get_config('method_name')}.{$this->get_config('format')}.php", $data, $return);
+    }
+    if(!$data) {
+      return $this->load($view, $this->CI, $return);
     }
     log_message('debug', "Contentful: loading view '{$view}'");
     ContentfulManager::instance()->content_for_main_area();
