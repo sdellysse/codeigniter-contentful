@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-get_instance()->load->library('ContentfulManager');
 if(!class_exists('Contentful')) {
+  get_instance()->load->library('ContentfulManager');
   class Contentful {
     function __construct($config = array()) {
       $this->CI =& get_instance();
@@ -31,9 +31,9 @@ if(!class_exists('Contentful')) {
         return $this->load($view, $this->CI, $return);
       }
       log_message('debug', "Contentful: loading view '{$view}'");
-      ContentfulManager::instance()->content_for_main_area();
+      $this->CI->contentfulmanager->content_for_main_area();
       echo $this->CI->load->view($view, $this->CI, true);
-      ContentfulManager::instance()->end_content_for();
+      $this->CI->contentfulmanager->end_content_for();
 
       $layout = "layouts/{$this->get_config('layout')}.{$this->get_config('format')}.php";
       log_message('debug', "Contentful: loading layout '{$layout}'");

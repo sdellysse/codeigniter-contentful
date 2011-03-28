@@ -1,7 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-get_instance()->load->library('ContentfulManager');
-
 if(!function_exists('content_for')) {
   function content_for($section, $closure = null) {
     return get_instance()->contentfulmanager->content_for($section, $closure);
@@ -62,3 +60,4 @@ if(!function_exists('yield')) {
     );
   }
 }
+log_message('debug', 'contentfulmanager helpers loaded');

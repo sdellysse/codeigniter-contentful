@@ -4,9 +4,22 @@ if(!class_exists('ContentfulManager')) {
     private $blocks;
     private $call_stack;
 
-    public function __construct() {
+    public function __construct($config = array()) {
+      $this->CI =& get_instance();
+
       $this->blocks = array();
       $this->call_stack = array();
+
+      $this->set_config('helpers_enabled', true);
+
+      foreach($config as $k => $v) {
+        $this->set_config($k, $v);
+      }
+      log_message('debug', 'Contentful Manager class initialized');
+
+      if($this->get_config('helpers_enabled')) {
+        $this->CI->load->helper('contentfulmanager');
+      }
     }
 
     public function content_for($section, $closure = null) {
@@ -29,8 +42,22 @@ if(!class_exists('ContentfulManager')) {
       $this->blocks[$section] = ob_get_clean();
     }
 
+    public function get_config($key) {
+      if(strpos($key, '_') !== 0) {
+        return $this->get_config('_' . $key);
+      }
+      return $this->$key;
+    }
+
     public function has_content_for($section) {
       return isset($this->blocks[$section]);
+    }
+
+    public function set_config($key, $value) {
+      if(strpos($key, '_') !== 0) {
+        return $this->set_config('_' . $key, $value);
+      }
+      return $this->$key = $value;
     }
 
     public function yield(/*...*/) {
