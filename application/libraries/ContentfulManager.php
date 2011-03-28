@@ -37,6 +37,25 @@ if(!class_exists('ContentfulManager')) {
       return $this->content_for('', $closure);
     }
 
+    public function contents_of(/*...*/) {
+      $args = func_get_args();
+
+      $section = array_shift($args);
+      $format_functions = $args;
+
+      if($format_functions) {
+        $func = array_pop($format_functions);
+        array_unshift($format_functions, $section);
+        return $func(call_user_func_array('contents_of', $format_functions));
+      } else {
+        if(array_key_exists($section, $this->blocks)) {
+          return $this->blocks[$section];
+        } else {
+          return '';
+        }
+      }
+    }
+
     public function end_content_for() {
       $section = array_pop($this->call_stack);
       $this->blocks[$section] = ob_get_clean();
@@ -58,28 +77,6 @@ if(!class_exists('ContentfulManager')) {
         return $this->set_config('_' . $key, $value);
       }
       return $this->$key = $value;
-    }
-
-    public function yield(/*...*/) {
-      $args = func_get_args();
-
-      $section = array_shift($args);
-      $format_functions = $args;
-
-      if($format_functions) {
-        $func = array_pop($format_functions);
-        array_unshift($format_functions, $section);
-        return $func(call_user_func_array('yield', $format_functions));
-      } else {
-        if(is_null($section)) {
-          return $this->yield('');
-        }
-        if(array_key_exists($section, $this->blocks)) {
-          return $this->blocks[$section];
-        } else {
-          return '';
-        }
-      }
     }
   }
 }

@@ -41,28 +41,28 @@ Usage
 
     <html>
       <head>
-        <title><?php echo yield('title') ?></title>
+        <title><?php echo contents_of('title') ?></title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js" type="text/javascript"></script>
-        <?php echo yield('head') ?>
+        <?php echo contents_of('head') ?>
       </head>
-      <body class="<?php echo yield('body-class', 'trim')?>">
+      <body class="<?php echo contents_of('body-class', 'trim')?>">
         <h1>Layout</h1>
         <hr/>
         <h1>View:</h1>
         <div style="border: 3px coral solid">
-          <?php echo yield() ?>
+          <?php echo contents_of('main_area') ?>
         </div>
       </body>
     </html>
 
-  The `yield($section)` will return the content inside the `content_for` block
-  written in the view. The first argument to `yield` is always the name of the
+  The `contents_of($section)` will return the content inside the `content_for` block
+  written in the view. The first argument to `contents_of` is always the name of the
   section; it can also take an arbitrary number of strings after the section
   that are the names of functions that will format the output. In this case,
-  for the `body-class` section, that yield call is equivalent to
-  `<?php echo trim(yield('body-class')) ?>`. In general,
-  `yield('some-section', 'a', 'b', 'c')` will be equivalent to
-  `a(b(c(yield('some-section'))))`.
+  for the `body-class` section, that contents_of call is equivalent to
+  `<?php echo trim(contents_of('body-class')) ?>`. In general,
+  `contents_of('some-section', 'a', 'b', 'c')` will be equivalent to
+  `a(b(c(contents_of('some-section'))))`.
 
 ### In your view:
 
@@ -84,7 +84,7 @@ Usage
 
     Hello, <?php echo $name ?>!
 
-  Each `content_for($section)` should map to a `yield($section)` in your
+  Each `content_for($section)` should map to a `contents_of($section)` in your
   layout. Please note that, although they are style and indented as such,
   `content_for` blocks are *not* control structures. All code inside a
   block will always be evaluated.

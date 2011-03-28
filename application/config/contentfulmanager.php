@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /*
 |--------------------------------------------------------------------------
-| Enable/Disable helpers: content_for(), yield(), etc.
+| Enable/Disable helpers: content_for(), contents_of(), etc.
 |--------------------------------------------------------------------------
 |
 | Default is true. If true, when the ContentfulManager library is loaded,
