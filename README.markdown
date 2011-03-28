@@ -16,8 +16,8 @@ Installation
 2. Copy the contents of the extracted directory to your CodeIgniter project
    root.
 3. That's it. It comes with an example controller/layout/view combination for
-   testing purposes. Assuming your project url is [http://localhost/ci][3],
-   point your web browser to [http://localhost/ci/index.php/contentfultest][4].
+   testing purposes. Assuming your project url is http://localhost/ci,
+   point your web browser to http://localhost/ci/index.php/contentfultest.
 
 Usage
 -----
@@ -84,5 +84,3 @@ Edit `application/config/contentful.php` and
 
 [1]: https://github.com/sdellysse/codeigniter-contentful/tarball/master
 [2]: https://github.com/sdellysse/codeigniter-contentful/zipball/master
-[3]: http://localhost/ci
-[4]: http://localhost/ci/index.php/contentfultest
