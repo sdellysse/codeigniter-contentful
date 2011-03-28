@@ -44,6 +44,9 @@ Usage
 Configuration
 -------------
 
+Edit `application/config/contentful.php` and
+`application/config/contentfulmanager.php`.
+
 
 [1]: https://github.com/sdellysse/codeigniter-contentful/tarball/master
 [2]: https://github.com/sdellysse/codeigniter-contentful/zipball/master
