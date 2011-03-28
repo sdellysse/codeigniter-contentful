@@ -39,7 +39,41 @@ Usage
 
 ### In your layout:
 
+    <html>
+      <head>
+        <title><?php echo yield('title') ?></title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js" type="text/javascript"></script>
+        <?php echo yield('head') ?>
+      </head>
+      <body class="<?php echo yield('body-class', 'trim')?>">
+        <h1>Layout</h1>
+        <hr/>
+        <h1>View:</h1>
+        <div style="border: 3px coral solid">
+          <?php echo yield() ?>
+        </div>
+      </body>
+    </html>
+
 ### In your view:
+
+    <?php content_for('title') ?>
+      Greetings <?php echo $name ?>!
+    <?php end_content_for() ?>
+
+    <?php content_for('body-class') ?>
+      greetings-page
+    <?php end_content_for() ?>
+
+    <?php content_for('head') ?>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          //...
+        });
+      </script>
+    <?php end_content_for() ?>
+
+    Hello, <?php echo $name ?>!
 
 Configuration
 -------------
