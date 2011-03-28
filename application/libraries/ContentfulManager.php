@@ -34,7 +34,7 @@ if(!class_exists('ContentfulManager')) {
     }
 
     public function content_for_main_area($closure = null) {
-      return $this->content_for('', $closure);
+      return $this->content_for('main_area', $closure);
     }
 
     public function contents_of(/*...*/) {
