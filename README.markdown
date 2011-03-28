@@ -1,6 +1,5 @@
 Contentful Templates for CodeIgniter
 ====================================
-
 What is Contentful?
 -------------------
 
