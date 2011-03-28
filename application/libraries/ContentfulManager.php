@@ -74,7 +74,11 @@ if(!class_exists('ContentfulManager')) {
         if(is_null($section)) {
           return $this->yield('');
         }
-        return $this->blocks[$section] ?: '';
+        if(array_key_exists($section, $this->blocks)) {
+          return $this->blocks[$section];
+        } else {
+          return '';
+        }
       }
     }
   }
