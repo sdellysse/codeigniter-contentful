@@ -7,7 +7,7 @@ What is Contentful?
 Heavily inspired by Rails 3's template system, Contentful is a templating
 library for CodeIgniter (tested on 2.0.1 Reactor) and PHP 5. It allows you
 to easily keep your layouts and views compeletely separate from your
-controllers. It also lets the individual apply changes to your layouts.
+controllers. It also lets the individual view apply changes to your layouts.
 
 Installation
 ------------
