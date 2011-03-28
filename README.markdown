@@ -1,5 +1,5 @@
-Contentful Templates for CodeIgniter Reactor
-============================================
+Contentful Templates for CodeIgniter
+====================================
 
 What is Contentful?
 -------------------
