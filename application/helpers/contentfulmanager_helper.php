@@ -4,6 +4,13 @@ if(!function_exists('content_for')) {
   function content_for($section, $closure = null) {
     return get_instance()->contentfulmanager->content_for($section, $closure);
   }
+  if(class_exists('SafePhp')) {
+    get_instance()->safephp->add(
+      'control',
+      '/OPENTAG\s*content\s+for\s+([\w-\.]+)\s*CLOSETAG/',
+      '<?php content_for(\'$1\')?>'
+    );
+  }
 }
 
 if(!function_exists('content_for_main_area')) {
@@ -16,11 +23,30 @@ if(!function_exists('contents_of')) {
   function contents_of(/*...*/) {
     return call_user_func_array(array(get_instance()->contentfulmanager, 'contents_of'), func_get_args());
   }
+  if(class_exists('SafePhp')) {
+    get_instance()->safephp->add(
+      'escaped_output',
+      '/OPENTAG\s*contents\s+of\s+([\w-\.]+)\s*CLOSETAG/',
+      '<?php echo htmlspecialchars(contents_of(\'$1\'), ENT_QUOTES) ?>'
+    );
+    get_instance()->safephp->add(
+      'unescaped_output',
+      '/OPENTAG\s*contents\s+of\s+([\w-\.]+)\s*CLOSETAG/',
+      '<?php echo contents_of(\'$1\') ?>'
+    );
+  }
 }
 
 if(!function_exists('end_content_for')) {
   function end_content_for() {
     return get_instance()->contentfulmanager->end_content_for();
+  }
+  if(class_exists('SafePhp')) {
+    get_instance()->safephp->add(
+      'control',
+      '/OPENTAG\s*end\s+content\s+for\s*CLOSETAG/',
+      '<?php end_content_for() ?>'
+    );
   }
 }
 
