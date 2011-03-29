@@ -8,7 +8,7 @@ if(!function_exists('content_for')) {
     get_instance()->safephp->add(
       'control',
       '/OPENTAG\s*content\s+for\s+([\w-\.]+)\s*CLOSETAG/',
-      '<?php content_for(\'$1\')?>'
+      'OPENTAG content_for(\'$1\') CLOSETAG'
     );
   }
 }
@@ -27,12 +27,12 @@ if(!function_exists('contents_of')) {
     get_instance()->safephp->add(
       'escaped_output',
       '/OPENTAG\s*contents\s+of\s+([\w-\.]+)\s*CLOSETAG/',
-      '<?php echo htmlspecialchars(contents_of(\'$1\'), ENT_QUOTES) ?>'
+      'OPENTAG htmlspecialchars(contents_of(\'$1\'), ENT_QUOTES) CLOSETAG'
     );
     get_instance()->safephp->add(
       'unescaped_output',
       '/OPENTAG\s*contents\s+of\s+([\w-\.]+)\s*CLOSETAG/',
-      '<?php echo contents_of(\'$1\') ?>'
+      'OPENTAG contents_of(\'$1\') CLOSETAG'
     );
   }
 }
@@ -45,7 +45,7 @@ if(!function_exists('end_content_for')) {
     get_instance()->safephp->add(
       'control',
       '/OPENTAG\s*end\s+content\s+for\s*CLOSETAG/',
-      '<?php end_content_for() ?>'
+      'OPENTAG end_content_for() CLOSETAG'
     );
   }
 }
