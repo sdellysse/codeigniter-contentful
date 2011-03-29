@@ -10,6 +10,11 @@ if(!function_exists('content_for')) {
       '/OPENTAG\s*content\s+for\s+([\w-\.]+)\s*CLOSETAG/',
       'OPENTAG content_for(\'$1\') CLOSETAG'
     );
+    get_instance()->safephp->add(
+      'control',
+      '/\<[Cc][Oo][Nn][Tt][Ee][Nn][Tt]\s+[Ff][Oo][Rr]=([\'"])([^\1]*)\1\s*\>/',
+      'OPENTAG content_for($1$2$1) CLOSETAG'
+    );
   }
 }
 
@@ -45,6 +50,11 @@ if(!function_exists('end_content_for')) {
     get_instance()->safephp->add(
       'control',
       '/OPENTAG\s*end\s+content\s+for\s*CLOSETAG/',
+      'OPENTAG end_content_for() CLOSETAG'
+    );
+    get_instance()->safephp->add(
+      'control',
+      '/\<\/[Cc][Oo][Nn][Tt][Ee][Nn][Tt]\s*\>/',
       'OPENTAG end_content_for() CLOSETAG'
     );
   }
