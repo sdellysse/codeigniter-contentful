@@ -16,6 +16,16 @@ $config['format'] = 'html';
 | Filename for default layout
 |--------------------------------------------------------------------------
 |
+| Default is TRUE. Determines whether or not a layout file should be used.
+|
+*/
+$config['layout_enabled'] = TRUE;
+
+/*
+|--------------------------------------------------------------------------
+| Filename for default layout
+|--------------------------------------------------------------------------
+|
 | Default is 'default'. Determines where it looks for a layout file if one
 | is not specified. This expands out to
 | application/views/layouts/$layout.$format.php

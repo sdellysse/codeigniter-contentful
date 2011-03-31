@@ -7,6 +7,8 @@ if(!class_exists('Contentful')) {
       $this->CI =& get_instance();
       $this->set_config('controller_name', $this->CI->router->fetch_class());
       $this->set_config('method_name', $this->CI->router->fetch_method());
+      $this->set_config('layout_enabled', TRUE);
+      $this->set_config('layouts_disabled_only_for_next_load', FALSE);
       $this->set_config('layout', 'default');
       $this->set_config('format', 'html');
 
@@ -16,7 +18,13 @@ if(!class_exists('Contentful')) {
       log_message('debug', 'Contentful Template class initialized');
     }
 
-    public function get_config($key) {
+    function disable_layout_for_next_load() {
+      $this->set_config('layout_enabled', FALSE);
+      $this->set_config('layouts_disabled_only_for_next_load', TRUE);
+      log_message('debug', 'Contentful: layouts disabled for first subsequent load');
+    }
+
+    function get_config($key) {
       if(strpos($key, '_') !== 0) {
         return $this->get_config('_' . $key);
       }
@@ -35,23 +43,32 @@ if(!class_exists('Contentful')) {
       echo $this->CI->load->view($view, $this->CI, true);
       $this->CI->contentfulmanager->end_content_for();
 
-      $layout = "layouts/{$this->get_config('layout')}.{$this->get_config('format')}.php";
-      log_message('debug', "Contentful: loading layout '{$layout}'");
+      if($this->get_config('layout_enabled')) {
+        $layout = "layouts/{$this->get_config('layout')}.{$this->get_config('format')}.php";
+        log_message('debug', "Contentful: loading layout '{$layout}'");
+      } else {
+        log_message('debug', 'Contentful: layout disabled');
+        if($this->get_config('layouts_disabled_only_for_next_load')) {
+          log_message('debug', 'Contentful: re-enabling layout');
+          $this->set_config('layout_enabled', TRUE);
+          $this->set_config('layouts_disabled_only_for_next_load', FALSE);
+        }
+      }
       return $this->CI->load->view($layout, $this->CI, $return);
     }
 
-    public function set_config($key, $value) {
+    function set_config($key, $value) {
       if(strpos($key, '_') !== 0) {
         return $this->set_config('_' . $key, $value);
       }
       return $this->$key = $value;
     }
 
-    public function set_format($format) {
+    function set_format($format) {
       return $this->set_config('format', $format);
     }
 
-    public function set_layout($layout) {
+    function set_layout($layout) {
       return $this->set_config('layout', $layout);
     }
   }
