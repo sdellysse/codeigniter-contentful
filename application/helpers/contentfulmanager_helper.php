@@ -13,6 +13,18 @@ if (!function_exists('content_for')) {
     }
 }
 
+if (!function_exists('content_for_main')) {
+    function content_for_main  () {
+        return call_user_func_array(array(get_instance()->contentfulmanager, 'content_for_main'), func_get_args());
+    }
+}
+
+if (!function_exists('contents_of_main')) {
+    function contents_of_main  () {
+        return call_user_func_array(array(get_instance()->contentfulmanager, 'contents_of_main'), func_get_args());
+    }
+}
+
 if (!function_exists('contents_of')) {
     function contents_of () {
         return call_user_func_array(array(get_instance()->contentfulmanager, 'contents_of'), func_get_args());

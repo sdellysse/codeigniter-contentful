@@ -30,22 +30,11 @@ if(!class_exists('ContentfulManager')) {
             return call_user_func_array(array($this, 'content_for'), $arguments);
         }
 
-        public function contents_of(/* ($section, $format_functions...) */) {
-            $args = func_get_args();
-
-            $section = array_shift($args);
-            $format_functions = $args;
-
-            if($format_functions) {
-                $func = array_pop($format_functions);
-                array_unshift($format_functions, $section);
-                return $func(call_user_func_array(array($this, 'contents_of'), $format_functions));
+        public function contents_of($section) {
+            if(array_key_exists($section, $this->blocks)) {
+                return $this->blocks[$section];
             } else {
-                if(array_key_exists($section, $this->blocks)) {
-                    return $this->blocks[$section];
-                } else {
-                    return '';
-                }
+                return '';
             }
         }
 
