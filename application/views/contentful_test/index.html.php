@@ -8,10 +8,12 @@
 
 <?php content_for('head') ?>
   <script type="text/javascript">
-    $(document).ready(function() {
-      //...
-    });
+    // We got scripts
   </script>
+
+  <style type="text/css">
+    /* and we have css */
+  </style>
 <?php end_content_for() ?>
 
 Hello, <?php echo $name ?>!

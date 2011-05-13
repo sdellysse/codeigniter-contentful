@@ -1,83 +1,68 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
+
 if(!class_exists('ContentfulManager')) {
-  class ContentfulManager {
-    private $blocks;
-    private $call_stack;
+    class ContentfulManager {
+        public function __construct($config = array()) {
+            $this->CI =& get_instance();
+            $this->CI->load->helper('contentfulmanager');
 
-    public function __construct($config = array()) {
-      $this->CI =& get_instance();
+            $this->blocks = array();
+            $this->section_name_stack = array();
+            $this->main_area_name = 'contentful_manager_main_area';
 
-      $this->blocks = array();
-      $this->call_stack = array();
-
-      $this->set_config('helpers_enabled', true);
-
-      foreach($config as $k => $v) {
-        $this->set_config($k, $v);
-      }
-      log_message('debug', 'Contentful Manager class initialized');
-
-      if($this->get_config('helpers_enabled')) {
-        $this->CI->load->helper('contentfulmanager');
-      }
-    }
-
-    public function content_for($section, $closure = null) {
-      if(is_callable($closure)) {
-        $this->content_for($section);
-        $closure();
-        return $this->end_content_for();
-      }
-
-      array_push($this->call_stack, $section);
-      ob_start();
-    }
-
-    public function content_for_main_area($closure = null) {
-      return $this->content_for('main_area', $closure);
-    }
-
-    public function contents_of(/*...*/) {
-      $args = func_get_args();
-
-      $section = array_shift($args);
-      $format_functions = $args;
-
-      if($format_functions) {
-        $func = array_pop($format_functions);
-        array_unshift($format_functions, $section);
-        return $func(call_user_func_array('contents_of', $format_functions));
-      } else {
-        if(array_key_exists($section, $this->blocks)) {
-          return $this->blocks[$section];
-        } else {
-          return '';
+            log_message('debug', 'Contentful Manager class initialized');
         }
-      }
-    }
 
-    public function end_content_for() {
-      $section = array_pop($this->call_stack);
-      $this->blocks[$section] = ob_get_clean();
-    }
+        public function content_for($section, $closure = null) {
+            if(is_callable($closure)) {
+                $this->content_for($section);
+                $closure();
+                return $this->end_content_for();
+            }
 
-    public function get_config($key) {
-      if(strpos($key, '_') !== 0) {
-        return $this->get_config('_' . $key);
-      }
-      return $this->$key;
-    }
+            array_push($this->section_name_stack, $section);
+            ob_start();
+        }
 
-    public function has_content_for($section) {
-      return isset($this->blocks[$section]);
-    }
+        public function content_for_main () {
+            $arguments = func_get_args();
+            array_unshift($arguments, $this->main_area_name);
+            return call_user_func_array(array($this, 'content_for'), $arguments);
+        }
 
-    public function set_config($key, $value) {
-      if(strpos($key, '_') !== 0) {
-        return $this->set_config('_' . $key, $value);
-      }
-      return $this->$key = $value;
+        public function contents_of(/* ($section, $format_functions...) */) {
+            $args = func_get_args();
+
+            $section = array_shift($args);
+            $format_functions = $args;
+
+            if($format_functions) {
+                $func = array_pop($format_functions);
+                array_unshift($format_functions, $section);
+                return $func(call_user_func_array(array($this, 'contents_of'), $format_functions));
+            } else {
+                if(array_key_exists($section, $this->blocks)) {
+                    return $this->blocks[$section];
+                } else {
+                    return '';
+                }
+            }
+        }
+
+        public function contents_of_main () {
+            $arguments = func_get_args();
+            array_unshift($arguments, $this->main_area_name);
+            return call_user_func_array(array($this, 'contents_of'), $arguments);
+        }
+
+        public function end_content_for() {
+            $section = array_pop($this->section_name_stack);
+            $this->blocks[$section] = ob_get_clean();
+        }
+
+        public function has_content_for($section) {
+            return isset($this->blocks[$section]);
+        }
     }
-  }
 }
 
