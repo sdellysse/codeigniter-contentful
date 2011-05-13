@@ -27,44 +27,38 @@ Usage
     class ContentfulTest extends CI_Controller {
       public function index() {
         $this->load->library('contentful');
-        $this->name = 'Shawn Dellysse';
-        $this->contentful->load();
+
+        $data['name'] = 'Shawn Dellysse';
+        $this->contentful->load('contentful_test/index', $data);
       }
     }
 
   This will load the library, set a variable in the view, and then load your
   layouts and views. Since you didn't specify otherwise, it will look for your
-  layout in `application/views/layout/default.html.php` and will look for your
-  view in `application/views/contentfultest/index.html.php`.
+  layout in `application/views/layouts/default.html.php`. Your per-page view
+  will be loaded from `application/views/contentful_test/index.html.php`.
 
-### In your layout:
+### In your layout `application/views/layouts/default.html.php`:
 
     <html>
       <head>
         <title><?php echo contents_of('title') ?></title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js" type="text/javascript"></script>
         <?php echo contents_of('head') ?>
       </head>
-      <body class="<?php echo contents_of('body-class', 'trim')?>">
+      <body class="<?php echo trim(contents_of('body-class'))?>">
         <h1>Layout</h1>
         <hr/>
         <h1>View:</h1>
         <div style="border: 3px coral solid">
-          <?php echo contents_of('main_area') ?>
+          <?php echo contents_of_main_area() ?>
         </div>
       </body>
     </html>
 
-  The `contents_of($section)` will return the content inside the `content_for` block
-  written in the view. The first argument to `contents_of` is always the name of the
-  section; it can also take an arbitrary number of strings after the section
-  that are the names of functions that will format the output. In this case,
-  for the `body-class` section, that contents_of call is equivalent to
-  `<?php echo trim(contents_of('body-class')) ?>`. In general,
-  `contents_of('some-section', 'a', 'b', 'c')` will be equivalent to
-  `a(b(c(contents_of('some-section'))))`.
+  The `contents_of('some section')` will return the content inside the `content_for('some section')` block
+  written in the view.
 
-### In your view:
+### In your view `application/views/contentful_test/index.html.php`:
 
     <?php content_for('title') ?>
       Greetings <?php echo $name ?>!
@@ -76,10 +70,11 @@ Usage
 
     <?php content_for('head') ?>
       <script type="text/javascript">
-        $(document).ready(function() {
-          //...
-        });
+        // We got scripts
       </script>
+      <style type="text/css">
+        /* and we got css too */
+      </style>
     <?php end_content_for() ?>
 
     Hello, <?php echo $name ?>!
@@ -93,12 +88,12 @@ Usage
     <html>
       <head>
         <title>  Greetings Shawn Dellysse!  </title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js" type="text/javascript"></script>
-          <script type="text/javascript">
-            $(document).ready(function() {
-              //...
-            });
-          </script>
+        <script type="text/javascript">
+          // We got scripts
+        </script>
+        <style type="text/css">
+          /* and we got css too */
+        </style>
       </head>
       <body class="greetings-page">
         <h1>Layout</h1>
@@ -113,9 +108,9 @@ Usage
 Configuration
 -------------
 
-Edit `application/config/contentful.php` and
-`application/config/contentfulmanager.php`.
+No initial configuration is necessary; however, all options are in `application/config/contentful.php` and
+`application/config/contentfulmanager.php` and are documented there.
 
 
-[1]: https://github.com/sdellysse/codeigniter-contentful/tarball/master
-[2]: https://github.com/sdellysse/codeigniter-contentful/zipball/master
+[1]: https://github.com/shawndellysse/codeigniter-contentful/tarball/master
+[2]: https://github.com/shawndellysse/codeigniter-contentful/zipball/master
