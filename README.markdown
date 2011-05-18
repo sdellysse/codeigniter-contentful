@@ -38,7 +38,7 @@ Usage
   layout in `application/views/layouts/default.html.php`. Your per-page view
   will be loaded from `application/views/contentful_test/index.html.php`.
 
-### In your layout `application/views/layouts/default.html.php`:
+### In your layout `application/views/_layouts/default.html.php`:
 
     <html>
       <head>
@@ -50,7 +50,7 @@ Usage
         <hr/>
         <h1>View:</h1>
         <div style="border: 3px coral solid">
-          <?php echo contents_of_main_area() ?>
+          <?php echo contents_of_main() ?>
         </div>
       </body>
     </html>

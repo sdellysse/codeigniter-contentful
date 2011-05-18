@@ -24,7 +24,7 @@ if(!class_exists('Contentful')) {
 
         function load($view, $vars = array(), $return = false) {
             $view_path = "{$view}.{$this->get_config('format')}.php";
-            $layout_path = "layouts/{$this->get_config('layout')}.{$this->get_config('format')}.php";
+            $layout_path = "_layouts/{$this->get_config('layout')}.{$this->get_config('format')}.php";
 
             if ($this->get_config('layout_enabled')) {
                 log_message('debug', "Contentful: loading view '{$view_path}'");
