@@ -13,16 +13,16 @@ Installation
 
 1. Download either the [tarball][1] or the [zipball][2],
    depending upon your poison of choice, and extract it.
-2. Copy the contents of the extracted directory to your CodeIgniter project
-   root.
-3. That's it. It comes with an example controller/layout/view combination for
-   testing purposes. Assuming your project url is http://localhost/ci,
-   point your web browser to http://localhost/ci/index.php/contentfultest.
+2. Copy the following files into your application directory:
+   * config/contentful.php
+   * helpers/contentfulmanager\_helper.php
+   * libraries/contentful.php
+   * libraries/contentfulmanager.php
 
 Usage
 -----
 
-### In your controller:
+### In your controller: `application/controllers/contentfultest.php`:
 
     class ContentfulTest extends CI_Controller {
       public function index() {
@@ -108,8 +108,8 @@ Usage
 Configuration
 -------------
 
-No initial configuration is necessary; however, all options are in `application/config/contentful.php` and
-`application/config/contentfulmanager.php` and are documented there.
+No initial configuration is necessary; however, all options are in `config/contentful.php` and
+are documented there.
 
 
 [1]: https://github.com/shawndellysse/codeigniter-contentful/tarball/master
