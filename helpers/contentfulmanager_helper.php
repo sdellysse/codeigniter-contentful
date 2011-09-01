@@ -2,7 +2,7 @@
 
 if (!function_exists('content_for')) {
     function content_for  () {
-        return call_user_func_array(array(get_instance()->contentfulmanager, 'content_for'), func_get_args());
+        return call_user_func_array(array(get_instance()->contentfulmanager, 'content_for'), $args = func_get_args());
     }
     if (class_exists('SafePhp')) {
         get_instance()->safephp->add(
@@ -15,19 +15,19 @@ if (!function_exists('content_for')) {
 
 if (!function_exists('content_for_main')) {
     function content_for_main  () {
-        return call_user_func_array(array(get_instance()->contentfulmanager, 'content_for_main'), func_get_args());
+        return call_user_func_array(array(get_instance()->contentfulmanager, 'content_for_main'), $args = func_get_args());
     }
 }
 
 if (!function_exists('contents_of_main')) {
     function contents_of_main  () {
-        return call_user_func_array(array(get_instance()->contentfulmanager, 'contents_of_main'), func_get_args());
+        return call_user_func_array(array(get_instance()->contentfulmanager, 'contents_of_main'), $args = func_get_args());
     }
 }
 
 if (!function_exists('contents_of')) {
     function contents_of () {
-        return call_user_func_array(array(get_instance()->contentfulmanager, 'contents_of'), func_get_args());
+        return call_user_func_array(array(get_instance()->contentfulmanager, 'contents_of'), $args = func_get_args());
     }
     if (class_exists('SafePhp')) {
         get_instance()->safephp->add(
@@ -58,6 +58,6 @@ if (!function_exists('end_content_for')) {
 
 if (!function_exists('has_content_for')) {
     function has_content_for () {
-        return call_user_func_array(array(get_instance()->contentfulmanager, 'has_content_for'), func_get_args());
+        return call_user_func_array(array(get_instance()->contentfulmanager, 'has_content_for'), $args = func_get_args());
     }
 }
